@@ -12,7 +12,15 @@ java {
 }
 
 repositories {
-	mavenCentral()
+	mavenLocal()
+	maven("https://hotmart-artifacts-315120000506.d.codeartifact.us-east-1.amazonaws.com/maven/java") {
+		credentials {
+			username = "aws"
+			password = System.getenv("CODEARTIFACT_AUTH_TOKEN")
+		}
+	}
+	maven("https://mvnrepository.vulcano.rocks/artifactory/libs-release")
+	maven("https://mvnrepository.vulcano.rocks/artifactory/libs-snapshot")
 	maven { url = uri("https://repo.spring.io/milestone") }
 	maven { url = uri("https://repo.spring.io/snapshot") }
 }
@@ -24,6 +32,9 @@ dependencies {
 	implementation("com.amazonaws:aws-java-sdk-sts:1.9.6")
 	implementation("com.amazonaws:aws-java-sdk-s3:1.12.604")
 	implementation("com.amazonaws:aws-java-sdk-core:1.12.604")
+
+	implementation("com.hotmart.datahub:event-agent:3.3.5")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 }
