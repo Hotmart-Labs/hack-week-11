@@ -21,6 +21,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("com.amazonaws:aws-java-sdk-sts:1.9.6")
+	implementation("com.amazonaws:aws-java-sdk-s3:1.12.604")
+	implementation("com.amazonaws:aws-java-sdk-core:1.12.604")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 }
