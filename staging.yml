@@ -59,7 +59,7 @@ infra:
             ],
             "Resource": [
               "arn:aws:s3:::staging-hotmart/",
-              "arn:aws:s3:::staging-hotmart/*"
+              "arn:aws:s3:::staging-hotmart/*",
             ]
           }
         ]
