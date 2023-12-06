@@ -22,13 +22,13 @@ public class S3Service {
         this.voicesProperties = voicesProperties;
     }
 
-    public void upload(String paragraphTranscription, byte[] audioFile, TranscriptionCallbackDTO callbackDTO) {
+    public void upload(byte[] audioFile, String userCode) {
         try {
-            var in = new ByteArrayInputStream(paragraphTranscription.getBytes());
-            var metadata = new ObjectMetadata();
-            metadata.setContentLength(paragraphTranscription.getBytes().length);
-            metadata.setContentType("txt");
-            amazonS3.putObject(new PutObjectRequest("bucketName", "id_123", in, metadata));
+            var inFile = new ByteArrayInputStream(audioFile);
+            var metadataAudio = new ObjectMetadata();
+            metadataAudio.setContentLength(audioFile.length);
+            metadataAudio.setContentType("mpg");
+            amazonS3.putObject(new PutObjectRequest("staging-hotmart" , "hackweek11/audio/" + userCode, inFile, metadataAudio));
         } catch (Exception e) {
             log.error("[S3Service] Error uploading file", e);
         }

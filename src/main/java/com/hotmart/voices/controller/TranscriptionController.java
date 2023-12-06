@@ -36,7 +36,7 @@ public class TranscriptionController {
             @PathVariable(name = "fileName") String fileName,
             @Parameter(description = "Callback data")
             @RequestBody TranscriptionCallbackDTO callbackDTO) {
-        transcriptionService.callbackTranscription(callbackDTO);
+        transcriptionService.callbackTranscription(callbackDTO, userCode, fileName);
         return ResponseEntity.ok().build();
     }
 
