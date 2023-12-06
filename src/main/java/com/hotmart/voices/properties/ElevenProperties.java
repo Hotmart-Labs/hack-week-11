@@ -13,4 +13,7 @@ public class ElevenProperties {
     private String apiUrl;
     private String path;
     private String voiceId;
+    private String model;
+    private Double stability;
+    private Double similarityBoost;
 }

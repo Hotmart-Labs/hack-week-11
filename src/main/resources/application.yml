@@ -56,6 +56,9 @@ eleven:
   voiceId: 47Ifm7ZS6KIClxAMGoJu
   apiUrl: https://api.elevenlabs.io
   path: /v1/text-to-speech/
+  model: eleven_multilingual_v2
+  stability: 0.9
+  similarity_boost: 0.9
 
 hotmert:
   s3:

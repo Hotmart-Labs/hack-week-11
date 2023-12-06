@@ -4,11 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hotmart.voices.dto.TranscriptionCallbackDTO;
 import com.hotmart.voices.dto.TranscriptionRequestDTO;
 import com.hotmart.voices.gateway.ApiElevenGateway;
-import com.hotmart.voices.gateway.dto.ReshapeParagraphResponseDTO;
-import com.hotmart.voices.gateway.dto.ReshapeRequestDTO;
-import com.hotmart.voices.gateway.dto.ReshapeResponseDTO;
-import com.hotmart.voices.gateway.dto.ReshapeTextResponseDTO;
+import com.hotmart.voices.gateway.dto.*;
 import com.hotmart.voices.gateway.ApiReshapeGateway;
+import com.hotmart.voices.properties.ElevenProperties;
 import com.hotmart.voices.properties.ReshapeProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +31,8 @@ public class TranscriptionService {
 
 
     private final ReshapeProperties reshapeProperties;
+    private final ElevenProperties elevenProperties;
+
     private final ApiReshapeGateway apiReshapeGateway;
     private final ApiElevenGateway apiElevenGateway;
     private final S3Service s3Service;
@@ -67,7 +67,17 @@ public class TranscriptionService {
             log.info("Callback transcription with public id {}", requestDTO.getPublicId());
             var paragraphsStr = this.getTranscription(requestDTO.getPublicId());
             log.info("Paragraph transcription: {}", paragraphsStr);
-            byte[] audioFile = apiElevenGateway.genareteAudio(paragraphsStr);
+            var elevenRequestDTO = ElevenRequestDTO.builder()
+                    .text(paragraphsStr)
+                    .modelId(elevenProperties.getModel())
+                    .voiceSettingsDTO(VoiceSettingsRequestDTO.builder()
+                            .stability(elevenProperties.getStability())
+                            .similarityBoost(elevenProperties.getSimilarityBoost())
+                            .build())
+                    .build();
+
+            byte[] audioFile = apiElevenGateway.createAudio(
+                    elevenProperties.getKey(), elevenProperties.getVoiceId(), elevenRequestDTO);
             s3Service.upload(paragraphsStr, audioFile, requestDTO);
         }
     }
