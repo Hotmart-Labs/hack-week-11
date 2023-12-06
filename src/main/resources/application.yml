@@ -30,7 +30,7 @@ management:
         enabled: true
   endpoints:
     web:
-      base-path: /management
+      base-path: /actuator
       exposure:
         include: info, health, metrics
 
