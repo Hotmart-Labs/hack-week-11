@@ -4,8 +4,6 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.hotmart.voices.domain.dto.TranscriptionCallbackDTO;
-import com.hotmart.voices.infrastructure.property.VoicesProperties;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,15 +19,14 @@ import java.nio.file.Files;
 public class S3Service {
 
     private final AmazonS3 amazonS3;
-    private final VoicesProperties voicesProperties;
 
-    public void upload(String paragraphTranscription, byte[] audioFile, TranscriptionCallbackDTO callbackDTO) {
+    public void upload(byte[] audioFile, String userCode) {
         try {
-            var in = new ByteArrayInputStream(paragraphTranscription.getBytes());
-            var metadata = new ObjectMetadata();
-            metadata.setContentLength(paragraphTranscription.getBytes().length);
-            metadata.setContentType("txt");
-            amazonS3.putObject(new PutObjectRequest(voicesProperties.getBucket(), "id_123", in, metadata));
+            var inFile = new ByteArrayInputStream(audioFile);
+            var metadataAudio = new ObjectMetadata();
+            metadataAudio.setContentLength(audioFile.length);
+            metadataAudio.setContentType("mpg");
+            amazonS3.putObject(new PutObjectRequest("staging-hotmart" , "hackweek11/audio/" + userCode, inFile, metadataAudio));
         } catch (Exception e) {
             log.error("[S3Service] Error uploading file", e);
         }

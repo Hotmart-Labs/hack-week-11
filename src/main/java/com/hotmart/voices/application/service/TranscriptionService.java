@@ -58,7 +58,7 @@ public class TranscriptionService {
         return transcriptionResponse.getPublicId();
     }
 
-    public void callbackTranscription(TranscriptionCallbackDTO requestDTO) {
+    public void callbackTranscription(TranscriptionCallbackDTO requestDTO, String userCode, String fileName) {
         if(Objects.nonNull(requestDTO.getPublicId())) {
             log.info("Callback transcription with public id {}", requestDTO.getPublicId());
             var paragraphsStr = this.getTranscription(requestDTO.getPublicId());
@@ -74,7 +74,7 @@ public class TranscriptionService {
 
             byte[] audioFile = apiElevenGateway.createAudio(
                     elevenProperties.getKey(), elevenProperties.getVoiceId(), elevenRequestDTO);
-            s3Service.upload(paragraphsStr, audioFile, requestDTO);
+            s3Service.upload(audioFile, userCode);
         }
     }
 
