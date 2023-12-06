@@ -37,6 +37,8 @@ dependencies {
 	implementation("com.amazonaws:aws-java-sdk-s3:1.12.604")
 	implementation("com.amazonaws:aws-java-sdk-core:1.12.604")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
+	implementation("net.bramp.ffmpeg:ffmpeg:0.8.0")
+	implementation("org.projectlombok:lombok:1.18.28")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
