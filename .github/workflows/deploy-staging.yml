@@ -3,7 +3,7 @@ permissions: write-all
 on:
   push:
     branches:
-      - develop
+      - master
 
 concurrency:
   group: pipeline-staging-${{ github.head_ref }}
