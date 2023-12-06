@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TranscriptionService {
 
-    public static final String HOTMART_VOICES_HOST = "https://hotmart-voices.buildstaging.com";
+    public static final String HOTMART_VOICES_HOST = "https://voices.buildstaging.com";
     public static final String S3_BUCKET = "https://staging-hotmart.s3.amazonaws.com/hackweek11/audio/";
 
     public static final String VERSION_API = "v1";
