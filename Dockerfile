@@ -1,4 +1,4 @@
-FROM 315120000506.dkr.ecr.us-east-1.amazonaws.com/hotmart/alpine/openjdk/21/jre-minimal
+FROM 315120000506.dkr.ecr.us-east-1.amazonaws.com/hotmart/alpine/openjdk/21/ffmpeg5
 
 ENV APP_NAME hotmart-voices
 
