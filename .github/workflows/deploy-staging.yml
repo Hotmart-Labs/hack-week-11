@@ -1,0 +1,71 @@
+name: deploy-staging
+permissions: write-all
+on:
+  push:
+    branches:
+      - develop
+
+concurrency:
+  group: pipeline-staging-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  base:
+    uses: Hotmart-Org/actions/.github/workflows/base.yaml@master
+    secrets: inherit
+    with:
+      runs-on: "buildstaging-iac"
+      file: "staging.yml"
+      environment: "staging"
+      cluster: "buildstaging"
+      namespace: "hackweek"
+  pipeline-staging:
+    runs-on: [ self-hosted, buildstaging-iac ]
+    needs: base
+    env:
+      AWS_DEFAULT_REGION: us-east-1
+      VAULT_ROLE: "ga"
+      JAVA_VERSION: "21"
+    steps:
+      - name: clone-application
+        uses: actions/checkout@v3
+
+      - name: restore-cache
+        uses: Hotmart-Org/actions/cache@master
+        with:
+          bucket: buildstaging-pipeline-cache
+          cache-key: "${{ hashFiles('pom.xml') }}"
+          restore: true
+          mount: .m2
+        env:
+          GH_TOKEN: ${{ secrets.CI_GH_TOKEN }}
+
+      - name: build-application
+        uses: Hotmart-Org/actions/maven@master
+        with:
+          gh-token: ${{ secrets.CI_GH_TOKEN }}
+          java-version: ${{ env.JAVA_VERSION }}
+          command: ./gradlew build
+
+      - name: save-cache
+        uses: Hotmart-Org/actions/cache@master
+        with:
+          bucket: buildstaging-pipeline-cache
+          cache-key: "${{ hashFiles('pom.xml') }}"
+          rebuild: true
+          mount: .m2
+        env:
+          GH_TOKEN: ${{ secrets.CI_GH_TOKEN }}
+
+      - name: build-image
+        uses: Hotmart-Org/actions/docker@master
+        with:
+          file: "staging.yml"
+
+      - name: deploy-application
+        uses: Hotmart-Org/actions/helm@master
+        with:
+          file: "staging.yml"
+          environment: "staging"
+          cluster: "buildstaging"
+          namespace: "hackweek"

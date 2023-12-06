@@ -26,9 +26,6 @@ repositories {
 }
 
 dependencies {
-//	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-//	implementation("org.springframework.boot:spring-boot-starter-security")
-//	implementation("com.hotmart.datahub:event-agent:3.3.5")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-undertow")
 	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:2022.0.4"))

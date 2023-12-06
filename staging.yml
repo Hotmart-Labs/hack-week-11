@@ -1,0 +1,66 @@
+name: "hotmart-voices"
+
+replicaCount: 1
+maxSurge: 1
+cpu: 1
+memory: 1536M
+containerPort: 8080
+
+healthCheckPath: /actuator/health
+initialDelaySeconds: 50
+
+linkerd: true
+
+env:
+  SPRING_PROFILES_ACTIVE: "staging"
+  JAVA_EXECUTION_MODE: "standard"
+  JAVA_OPTS: -XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:-UseGCOverheadLimit -Dfile.encoding=UTF8 -Duser.timezone=UTC --add-opens java.base/java.time=ALL-UNNAMED
+
+lb:
+  type: nginx
+  hosts:
+    - host: voices.buildstaging.com
+      paths: ["/"]
+
+infra:
+  secrets:
+    client-credentials:
+      authorities: [ INTERNAL_APPLICATION ]
+      exp_refresh_token: 2592000
+      exp_token: 172800
+      grant_type: [ client_credentials, password ]
+  role:
+    irsa: true
+    attach_datahub_policy: true
+    policy: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": [
+              "s3:DeleteObject",
+              "s3:DeleteObjectTagging",
+              "s3:DeleteObjectVersion",
+              "s3:DeleteObjectVersionTagging",
+              "s3:GetObject",
+              "s3:GetObjectAcl",
+              "s3:GetObjectTagging",
+              "s3:GetObjectTorrent",
+              "s3:GetObjectVersion",
+              "s3:GetObjectVersionAcl",
+              "s3:GetObjectVersionTagging",
+              "s3:PutObject",
+              "s3:PutObjectAcl",
+              "s3:PutObjectTagging",
+              "s3:PutObjectVersionAcl",
+              "s3:PutObjectVersionTagging",
+              "s3:RestoreObject",
+            ],
+            "Resource": [
+              "arn:aws:s3:::staging-hotmart/",
+              "arn:aws:s3:::staging-hotmart/*"
+            ]
+          }
+        ]
+      }
