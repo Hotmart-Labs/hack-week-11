@@ -1,66 +1,73 @@
 spring:
-  application:
-    name: hotmart-voices
-  main:
-    allow-bean-definition-overriding: false
-    banner-mode: false
-  jackson:
-    default-property-inclusion: non_null
-    deserialization:
-      fail-on-unknown-properties: false
-
+    application:
+        name: ENC[AES256_GCM,data:Q5T6tHhEtx3tSda+wEA=,iv:Uf9Kab7a4mxQb7k/TiEvhdYXRjyiNTfJ/JjOGl1+9go=,tag:y3EkEXMPKa29pZOfbEmRDw==,type:str]
+    main:
+        allow-bean-definition-overriding: ENC[AES256_GCM,data:AQcp0QQ=,iv:QbzFneNos5JIRsnl/W257Fied3kOCwIVkVQqlSr5b0k=,tag:y1plVu2opDZXnJjVgMMMBw==,type:bool]
+        banner-mode: ENC[AES256_GCM,data:JaxlFQU=,iv:jL7b/U6sPCN1ekxwHdd/fCabszcCqzgWbBBo3CqYPP4=,tag:XE2kE3Pa7DAOx+Q8vQ+wVQ==,type:bool]
+    jackson:
+        default-property-inclusion: ENC[AES256_GCM,data:BEZzN9bLZvk=,iv:1yIRaglFf3Jc1yHKqNOcUOB6Q3Ji8HdqZ+zepuFDE+I=,tag:Mk6jy1WoPjhdBnCGdz4M8A==,type:str]
+        deserialization:
+            fail-on-unknown-properties: ENC[AES256_GCM,data:u1KShIM=,iv:SSYDL3nKWmcp74pu2xpCtGmaMibQe6NWbj9oxRdDPew=,tag:UttMj71DwECvddrNruIK0A==,type:bool]
 server:
-  compression:
-    enabled: true
-    mime-types: text/html,text/css,application/javascript,application/json
-    min-response-size: 2048
-  port: ${PORT:8080}
-  servlet:
-    context-path: /
-
+    compression:
+        enabled: ENC[AES256_GCM,data:NfZoYQ==,iv:PxzOkpCFODsxzLYZRN4MHHEmu+t1YVAAglIwS+wyuV4=,tag:Go/+yq3UPu0r/q7An8QmrA==,type:bool]
+        mime-types: ENC[AES256_GCM,data:nYWM+DF3fTSaiMuc1w59TATGHqZn58hEmzEeZPcUC712TDmTwLEtzcmY9VkoCsWV2QOxja45VIzHNw==,iv:hLYujM56l5bOYhf23vwewsd6OuQsm4gz3YYpzSKM4ws=,tag:5JVTSd/yYWScDNjYmxmqrQ==,type:str]
+        min-response-size: ENC[AES256_GCM,data:3+6/yw==,iv:vbtezpXUKdrWozHGDDQg6bqqgD92R8gkgCCS4T9f9Zc=,tag:3a0Y6ldukylpT/Nnovyujw==,type:int]
+    port: ENC[AES256_GCM,data:SdmgFRh1W1LTvOp6,iv:30EetJkTEWl9iojsyShb3irrFuC4RVbhLFhSmCV91kk=,tag:k4lDjA4zw9eulqh9jk1AbQ==,type:str]
+    servlet:
+        context-path: ENC[AES256_GCM,data:Gg==,iv:5CYfCA256XgDtk1/tyVDl4FqJyXWXObgv3Za1zFjEMo=,tag:noXqAV/Cwk9oeFV7eHTvSg==,type:str]
 management:
-  health:
-    livenessState:
-      enabled: true
-    readinessState:
-      enabled: true
-  endpoint:
     health:
-      probes:
-        enabled: true
-  endpoints:
-    web:
-      base-path: /management
-      exposure:
-        include: info, health, metrics
-
+        livenessState:
+            enabled: ENC[AES256_GCM,data:RfMWVg==,iv:7b8p4qKu1mtS08eu0onIxHHAXJAxjmxCeqiMC1S3c5o=,tag:hLChTnAn4G20iXCBozaTUw==,type:bool]
+        readinessState:
+            enabled: ENC[AES256_GCM,data:y6zneQ==,iv:d1qlXApfbzPgNh1eI/96DFp3GPgnvD/tFE8SachAT9k=,tag:SIcR7FYhUzXTW5wQxYNJWg==,type:bool]
+    endpoint:
+        health:
+            probes:
+                enabled: ENC[AES256_GCM,data:NLgpGg==,iv:eNgkqcJdBCa9JxZ9Qy+Yzy0kSUx3UFX8JMv3X1ACpNw=,tag:CqM58Opk8iT7juyjBDrUEg==,type:bool]
+    endpoints:
+        web:
+            base-path: ENC[AES256_GCM,data:X7b52CjEKn3m,iv:K61Ue6K+/ri4+eICvvSfUJ/+KtI8iHgeOR157avo2sw=,tag:Je37CvZUJI0mleftRTrgYg==,type:str]
+            exposure:
+                include: ENC[AES256_GCM,data:SAUYqf0573ngUQsUdN1kndy9i6g2,iv:WORRWe3bWHZCi4G5gpGds5pyfeyEEHTIqwl93IVojbY=,tag:20sIIjnVlR+kJ/qF4Qcxlg==,type:str]
 security:
-  user:
-    name: hotmart
-    role: ACTUATOR
-
+    user:
+        name: ENC[AES256_GCM,data:QfP1y9rT7w==,iv:Q98o2KBz4f3M7adfdOsKth9jIe2FRbQaQNePiEeeH20=,tag:t8lEEi420MPjmFv2bIVxVQ==,type:str]
+        role: ENC[AES256_GCM,data:EA+jb69V+jg=,iv:CvJcQI6sa9FSrlDrZfRxui/tllm12tJftgXgtWD7QKE=,tag:9+zdetkvvoWx5Subhy8E4A==,type:str]
 feign:
-  client:
-    api-reshape: https://app.reshape.com.br
-    api-eleven: https://api.elevenlabs.io
-  httpclient:
-    disable-ssl-validation: true
-
+    client:
+        api-reshape: ENC[AES256_GCM,data:GMDQ0gieGkyAiTXp9JFQ/jFfrs7onzHK0Cs=,iv:G09LaLc4iKj5NHk0IqNntlmzhRUvgVeyomA8pZkEbbc=,tag:XTvI3ytsg2razBmdCzja2A==,type:str]
+        api-eleven: ENC[AES256_GCM,data:vEwxw2DeMGnG7SsRok7nw4XQsxjIgnWrbg==,iv:7jsQepmAcoSlMTQSuH6LQfUPXwGZXnraY4tqgvg4Peo=,tag:xB4Bwxp6X2wpONTKXodUew==,type:str]
+    httpclient:
+        disable-ssl-validation: ENC[AES256_GCM,data:6K4XmA==,iv:TwgluAeVp5e0/YdJsrATS6SyB/08n0WDgGPlAONMWBQ=,tag:eECEy9d98kF98G6DGiaOAg==,type:bool]
 reshape:
-  key: 8ce3c1c0b3ab1796d5716034ae2a38111f658622
-  apiUrl: https://app.reshape.com.br
-  pathTranscription: /api/v1/transcriptions/
-
+    key: ENC[AES256_GCM,data:hrv4k/NYaMi9N/47NRZlLk14242zWovakJJYfuWEphyCzu94h/Ujjg==,iv:Vt4qauxYP3f2SOPWdl825eGlHM0cOQamWWJW+fuwbu4=,tag:NI6nWWQ3UlcQ5IfncmTacQ==,type:str]
+    apiUrl: ENC[AES256_GCM,data:ndlgEBLAtw95QMmswn90biMbkfCXE439i3Q=,iv:HSpGy9SAxQFm+FaClTdbiw/iQ/IHaEkGsVos59K0GWo=,tag:d3b47AxnPpapYRdTivJfVQ==,type:str]
+    pathTranscription: ENC[AES256_GCM,data:UfM8Z/CZaX+3wt1heG87A9Z9vcPsBHQ=,iv:+FjHkqLsUf+xV9kRoBk9cK4eUf3lOJqC+qP8JjmXnQ4=,tag:bKEdZTDfigre3DUlJTcPKQ==,type:str]
 eleven:
-  key: d9ef0c5d6f935e906e23d027a75cb622
-  voiceId: 47Ifm7ZS6KIClxAMGoJu
-  apiUrl: https://api.elevenlabs.io
-  path: /v1/text-to-speech/
-  model: eleven_multilingual_v2
-  stability: 0.9
-  similarity_boost: 0.9
-
+    key: ENC[AES256_GCM,data:DG6DRDhDH1Su5dk2TTTlv1tyNd5iWVnwUKShkSKHE6Q=,iv:WIK1GIPxXubVbaxA9W+gFGmrHB0b4PQKif5XH2Zo6q0=,tag:JyrBwk+WO4xNB5KVdTIJqg==,type:str]
+    voiceId: ENC[AES256_GCM,data:5NueYHE8h7/AxetVmWpaTVCHXxM=,iv:aBm9hA5eu0/A6k9hg4YQZ0Ahh4U0na1JRgNAdKYP77Q=,tag:0pdF6CN+g0Fu2JEWipiHqw==,type:str]
+    apiUrl: ENC[AES256_GCM,data:VrAsGzsCV2MzHgoZaSHmtbW+PqRh1YS2+g==,iv:u3aip+kMeI9+Cvem8YGdLZWZ3lUdAd1LIHbE2FQ3zrg=,tag:r6qSa4fZQ49puSI0cfQu/A==,type:str]
+    path: ENC[AES256_GCM,data:5G+fKxn6Mt7crpyo1hYtgbT9UQ==,iv:mMN+UWTcqkIIHP55P7VC1zOLIrQumLbyhRAxWgQtuRM=,tag:V3WlQoEPh1zNajNLZ+zkyg==,type:str]
+    model: ENC[AES256_GCM,data:FsEo5v1TnZAXJclx9k10VbYe+a7Ing==,iv:iP6XG3zOzDYaPz6/gTUeQhWd0hnEIjjbhrskSeqM70g=,tag:bKPxyv9gV+ApRjwvuCh/vA==,type:str]
+    stability: ENC[AES256_GCM,data:K7li,iv:l0E7HkRXBz5h8xGpkzufwDk2KHL+4exoZ7e+8bbSDcQ=,tag:0thoKuDHmTz+42sMZ2Kfug==,type:float]
+    similarity_boost: ENC[AES256_GCM,data:mtHn,iv:8usCejWPg/r3lwT7h0v8OvNYygNlNkYHrn6fk9Llp80=,tag:EirPc9iKkEYF40YlNrgi/w==,type:float]
 hotmert:
-  s3:
-    bucket: https://staging-hotmart.s3.amazonaws.com/hackweek11/audio/
-
+    s3:
+        bucket: ENC[AES256_GCM,data:9bXv0Qcf7pVCjgCaHgwVlWLFmL7ytnuJSp2aEGY/Hx+xU3VrE7JTFWjoEzWHMoAbhFe6X8Tzn5YZKQ==,iv:hzhWlOZk0sy7fMedB4+FP5avla0xMUY6sAVQsHLXve0=,tag:NT+GgHdjZ1v4M1UGzf4HpA==,type:str]
+sops:
+    kms:
+        - arn: arn:aws:kms:us-east-1:449466460580:alias/hotmart-voices
+          created_at: "2023-12-06T21:32:29Z"
+          enc: AQICAHjI8lxtktsr0GYBWmBeyhOtG9NRbBhE8jTKmcrEGAi/GgEB1O0/Qkm8A577pmrfTTihAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM8igZ/50LuAIpmjoHAgEQgDvjxBAg1SkfYMCFYZ72RgR7UQJkTXyVqs20WIm+GxCedN0dpYUhV6CtVCs7BpmrahL1ATyyyK0pF4MlWw==
+          aws_profile: ""
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2023-12-06T21:32:30Z"
+    mac: ENC[AES256_GCM,data:/ICBl4dp+4TcjNaxBTkgbtAG5a7sB7oamd8TUc1tTYc9wocB2cNvcbBqE/1iy7QhXTo1qWsHPd/FB+wpGWUHh3sshkAUsBjYE1+PWLW1tmwh/wLk7f76CR7nrtJzwCldQlWnT9x+AYPkjfzyhyV8eYkYXQfE3LcM3L6RM8Ehor8=,iv:PSmld6ry6DNcYsX0s7LStH4ciLG24lpDtB4CPyXCpqw=,tag:6YrGkMf6WnAMKlRfEFogww==,type:str]
+    pgp: []
+    unencrypted_suffix: _unencrypted
+    version: 3.8.1
