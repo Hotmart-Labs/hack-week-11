@@ -1,4 +1,4 @@
-package com.hotmart.voices.dto;
+package com.hotmart.voices.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

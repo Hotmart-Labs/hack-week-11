@@ -1,4 +1,4 @@
-package com.hotmart.voices.gateway.dto;
+package com.hotmart.voices.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

@@ -1,8 +1,8 @@
-package com.hotmart.voices.gateway;
+package com.hotmart.voices.domain.gateway;
 
-import com.hotmart.voices.gateway.dto.ReshapeRequestDTO;
-import com.hotmart.voices.gateway.dto.ReshapeResponseDTO;
-import com.hotmart.voices.gateway.dto.ReshapeTextResponseDTO;
+import com.hotmart.voices.domain.dto.ReshapeRequestDTO;
+import com.hotmart.voices.domain.dto.ReshapeResponseDTO;
+import com.hotmart.voices.domain.dto.ReshapeTextResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
