@@ -14,13 +14,13 @@ jobs:
     uses: Hotmart-Org/actions/.github/workflows/base.yaml@master
     secrets: inherit
     with:
-      runs-on: "buildstaging-iac"
+      runs-on: "buildstaging-enterprise-iac"
       file: "staging.yml"
       environment: "staging"
       cluster: "buildstaging"
       namespace: "hackweek"
   pipeline-staging:
-    runs-on: [ self-hosted, buildstaging-iac ]
+    runs-on: [ self-hosted, buildstaging-enterprise-iac ]
     needs: base
     env:
       AWS_DEFAULT_REGION: us-east-1
