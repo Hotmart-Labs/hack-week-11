@@ -1,4 +1,4 @@
-package com.hotmart.voices.properties;
+package com.hotmart.voices.infrastructure.property;
 
 
 import lombok.Data;

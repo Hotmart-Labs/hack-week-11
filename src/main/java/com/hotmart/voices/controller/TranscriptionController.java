@@ -3,7 +3,7 @@ package com.hotmart.voices.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hotmart.voices.dto.TranscriptionCallbackDTO;
 import com.hotmart.voices.dto.TranscriptionRequestDTO;
-import com.hotmart.voices.service.TranscriptionService;
+import com.hotmart.voices.application.service.TranscriptionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

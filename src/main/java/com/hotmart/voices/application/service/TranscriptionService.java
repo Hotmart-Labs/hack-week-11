@@ -1,4 +1,4 @@
-package com.hotmart.voices.service;
+package com.hotmart.voices.application.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hotmart.voices.dto.TranscriptionCallbackDTO;
@@ -6,8 +6,8 @@ import com.hotmart.voices.dto.TranscriptionRequestDTO;
 import com.hotmart.voices.gateway.ApiElevenGateway;
 import com.hotmart.voices.gateway.dto.*;
 import com.hotmart.voices.gateway.ApiReshapeGateway;
-import com.hotmart.voices.properties.ElevenProperties;
-import com.hotmart.voices.properties.ReshapeProperties;
+import com.hotmart.voices.infrastructure.property.ElevenProperties;
+import com.hotmart.voices.infrastructure.property.ReshapeProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

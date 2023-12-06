@@ -1,4 +1,4 @@
-package com.hotmart.voices.service;
+package com.hotmart.voices.application.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
