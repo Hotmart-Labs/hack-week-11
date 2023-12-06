@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,6 +59,16 @@ public class TranscriptionService {
         return transcriptionResponse.getPublicId();
     }
 
+    public String callbackTranscription(TranscriptionCallbackDTO requestDTO) {
+        if(Objects.nonNull(requestDTO.getPublicId())) {
+            log.info("Callback transcription with public id {}", requestDTO.getPublicId());
+            var paragraphsStr = this.getTranscription(requestDTO.getPublicId());
+            log.info("Paragraph transcription: {}", paragraphsStr);
+            return paragraphsStr;
+        }
+        return null;
+    }
+
     public String getTranscription(String transcriptionId) {
         String apiToken = "Token " + reshapeProperties.getKey();
         ReshapeTextResponseDTO transcriptionResponse = apiReshapeGateway.getTranscription(apiToken, transcriptionId);
@@ -66,10 +77,5 @@ public class TranscriptionService {
         return paragraphs.stream()
                 .map(ReshapeParagraphResponseDTO::getText)
                 .collect(Collectors.joining(StringUtils.SPACE));
-    }
-
-    public String callbackTranscription(TranscriptionCallbackDTO requestDTO) {
-        log.info("Callback transcription with values {}", requestDTO.getPublicId());
-        return null;
     }
 }
