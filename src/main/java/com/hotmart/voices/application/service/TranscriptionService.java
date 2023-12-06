@@ -13,10 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,10 +36,11 @@ public class TranscriptionService {
 
     public String send(TranscriptionRequestDTO requestDTO) throws JsonProcessingException {
         var fileName = requestDTO.getUrl().replace(S3_BUCKET, StringUtils.EMPTY);
-        var callbackUrl = String.join("/", HOTMART_VOICES_HOST, VERSION_API, requestDTO.getUserCode(), fileName);
+        var userCode = UUID.randomUUID().toString();
+        var callbackUrl = String.join("/", HOTMART_VOICES_HOST, VERSION_API, userCode, fileName);
 
         Map<String, Object> metadata = new HashMap<>();
-        metadata.put("userCode", requestDTO.getUserCode());
+        metadata.put("userCode", userCode);
         metadata.put("fileName", fileName);
         metadata.put("fileUrl", requestDTO.getUrl());
 
