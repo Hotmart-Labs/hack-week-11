@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: hotmart-voices
+  main:
+    allow-bean-definition-overriding: false
+    banner-mode: false
+  jackson:
+    default-property-inclusion: non_null
+    deserialization:
+      fail-on-unknown-properties: false
+
+server:
+  compression:
+    enabled: true
+    mime-types: text/html,text/css,application/javascript,application/json
+    min-response-size: 2048
+  port: ${PORT:8080}
+  servlet:
+    context-path: /
+
+management:
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include: info, health, metrics
+
+security:
+  user:
+    name: hotmart
+    role: ACTUATOR
+
+feign:
+  client:
+    api-reshape: https://app.reshape.com.br
+  httpclient:
+    disable-ssl-validation: true
+
+reshape:
+  key: 8ce3c1c0b3ab1796d5716034ae2a38111f658622
+  apiUrl: https://app.reshape.com.br
+  pathTranscription: /api/v1/transcriptions/
+
+hotmert:
+  s3:
+    bucket: https://staging-hotmart.s3.amazonaws.com/hackweek11/audio/
+
