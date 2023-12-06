@@ -2,12 +2,12 @@ name: "hotmart-voices"
 
 replicaCount: 1
 maxSurge: 1
-cpu: 1
+cpu: 0.5
 memory: 1536M
 containerPort: 8080
 
 healthCheckPath: /actuator/health
-initialDelaySeconds: 50
+initialDelaySeconds: 25
 
 linkerd: true
 
