@@ -1,14 +1,15 @@
-package com.hotmart.voices.controller;
+package com.hotmart.voices.application.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.hotmart.voices.dto.TranscriptionCallbackDTO;
-import com.hotmart.voices.dto.TranscriptionRequestDTO;
+import com.hotmart.voices.application.service.S3Service;
 import com.hotmart.voices.application.service.TranscriptionService;
+import com.hotmart.voices.domain.dto.TranscriptionCallbackDTO;
+import com.hotmart.voices.domain.dto.TranscriptionRequestDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +17,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1")
 @Tag(name = "Transcription API",description = "API for transcription text with Reshape")
 @Slf4j
+@AllArgsConstructor
 public class TranscriptionController {
 
-    @Autowired
-    private TranscriptionService transcriptionService;
+    private final TranscriptionService transcriptionService;
+    private final S3Service s3Service;
 
     @GetMapping("/transcription/{id}")
     public ResponseEntity<String> transcriptionById(
@@ -47,5 +49,4 @@ public class TranscriptionController {
             @RequestBody TranscriptionRequestDTO requestDTO) throws JsonProcessingException {
         return ResponseEntity.ok(transcriptionService.send(requestDTO));
     }
-
 }

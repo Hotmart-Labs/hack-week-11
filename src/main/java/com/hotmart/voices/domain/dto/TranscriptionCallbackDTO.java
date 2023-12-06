@@ -1,4 +1,4 @@
-package com.hotmart.voices.dto;
+package com.hotmart.voices.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

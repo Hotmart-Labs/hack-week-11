@@ -1,6 +1,6 @@
-package com.hotmart.voices.gateway;
+package com.hotmart.voices.domain.gateway;
 
-import com.hotmart.voices.gateway.dto.ElevenRequestDTO;
+import com.hotmart.voices.domain.dto.ElevenRequestDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
