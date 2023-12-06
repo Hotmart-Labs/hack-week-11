@@ -30,32 +30,41 @@ jobs:
       - name: clone-application
         uses: actions/checkout@v3
 
+      - name: configure-artifactory
+        uses: Hotmart-Org/actions/codeartifact@master
+        with:
+          type: 'java'
+
       - name: restore-cache
         uses: Hotmart-Org/actions/cache@master
         with:
           bucket: buildstaging-pipeline-cache
           cache-key: "${{ hashFiles('pom.xml') }}"
           restore: true
-          mount: .m2
+          mount: .m2, .gradle-wrapper
         env:
           GH_TOKEN: ${{ secrets.CI_GH_TOKEN }}
 
-      - name: build-application
-        uses: Hotmart-Org/actions/maven@master
+      - name: install-java
+        id: install-java
+        uses: actions/setup-java@v3
         with:
-          gh-token: ${{ secrets.CI_GH_TOKEN }}
-          java-version: ${{ env.JAVA_VERSION }}
-          command: ./gradlew build
+          java-version: "21.0.1+12.0.LTS"
+          distribution: "adopt"
+
+      - name: build-application
+        env:
+          GRADLE_USER_HOME: .gradle-wrapper
+        run: |
+          ./gradlew clean assemble -x test    
 
       - name: save-cache
         uses: Hotmart-Org/actions/cache@master
         with:
-          bucket: buildstaging-pipeline-cache
-          cache-key: "${{ hashFiles('pom.xml') }}"
+          bucket: 'buildstaging-pipeline-cache'
           rebuild: true
-          mount: .m2
-        env:
-          GH_TOKEN: ${{ secrets.CI_GH_TOKEN }}
+          mount: .gradle-wrapper,.m2
+          cache-key: '{{ checksum "build.gradle" }}'
 
       - name: build-image
         uses: Hotmart-Org/actions/docker@master
