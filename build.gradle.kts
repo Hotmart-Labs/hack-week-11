@@ -13,14 +13,14 @@ java {
 
 repositories {
 	mavenLocal()
-//	maven("https://hotmart-artifacts-315120000506.d.codeartifact.us-east-1.amazonaws.com/maven/java") {
-//		credentials {
-//			username = "aws"
-//			password = System.getenv("CODEARTIFACT_AUTH_TOKEN")
-//		}
-//	}
-//	maven("https://mvnrepository.vulcano.rocks/artifactory/libs-release")
-//	maven("https://mvnrepository.vulcano.rocks/artifactory/libs-snapshot")
+	maven("https://hotmart-artifacts-315120000506.d.codeartifact.us-east-1.amazonaws.com/maven/java") {
+		credentials {
+			username = "aws"
+			password = System.getenv("CODEARTIFACT_AUTH_TOKEN")
+		}
+	}
+	maven("https://mvnrepository.vulcano.rocks/artifactory/libs-release")
+	maven("https://mvnrepository.vulcano.rocks/artifactory/libs-snapshot")
 	maven { url = uri("https://repo.spring.io/milestone") }
 	maven { url = uri("https://repo.spring.io/snapshot") }
 }
