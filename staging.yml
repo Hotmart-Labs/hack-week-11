@@ -55,11 +55,11 @@ infra:
               "s3:PutObjectTagging",
               "s3:PutObjectVersionAcl",
               "s3:PutObjectVersionTagging",
-              "s3:RestoreObject",
+              "s3:RestoreObject"
             ],
             "Resource": [
               "arn:aws:s3:::staging-hotmart/",
-              "arn:aws:s3:::staging-hotmart/*",
+              "arn:aws:s3:::staging-hotmart/*"
             ]
           }
         ]
