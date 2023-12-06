@@ -3,6 +3,7 @@ package com.hotmart.voices.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hotmart.voices.dto.TranscriptionCallbackDTO;
 import com.hotmart.voices.dto.TranscriptionRequestDTO;
+import com.hotmart.voices.gateway.ApiElevenGateway;
 import com.hotmart.voices.gateway.dto.ReshapeParagraphResponseDTO;
 import com.hotmart.voices.gateway.dto.ReshapeRequestDTO;
 import com.hotmart.voices.gateway.dto.ReshapeResponseDTO;
@@ -33,6 +34,8 @@ public class TranscriptionService {
 
     private final ReshapeProperties reshapeProperties;
     private final ApiReshapeGateway apiReshapeGateway;
+    private final ApiElevenGateway apiElevenGateway;
+    private final S3Service s3Service;
 
     public String send(TranscriptionRequestDTO requestDTO) throws JsonProcessingException {
         var fileName = requestDTO.getUrl().replace(S3_BUCKET, StringUtils.EMPTY);
@@ -59,15 +62,16 @@ public class TranscriptionService {
         return transcriptionResponse.getPublicId();
     }
 
-    public String callbackTranscription(TranscriptionCallbackDTO requestDTO) {
+    public void callbackTranscription(TranscriptionCallbackDTO requestDTO) {
         if(Objects.nonNull(requestDTO.getPublicId())) {
             log.info("Callback transcription with public id {}", requestDTO.getPublicId());
             var paragraphsStr = this.getTranscription(requestDTO.getPublicId());
             log.info("Paragraph transcription: {}", paragraphsStr);
-            return paragraphsStr;
+            byte[] audioFile = apiElevenGateway.genareteAudio(paragraphsStr);
+            s3Service.upload(paragraphsStr, audioFile, requestDTO);
         }
-        return null;
     }
+
 
     public String getTranscription(String transcriptionId) {
         String apiToken = "Token " + reshapeProperties.getKey();

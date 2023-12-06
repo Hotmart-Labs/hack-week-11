@@ -1,19 +1,18 @@
-package com.hotmart.voices.application.service;
+package com.hotmart.voices.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.hotmart.voices.dto.TranscriptionCallbackDTO;
 import com.hotmart.voices.infrastructure.property.VoicesProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 
 @Service
+@Slf4j
 public class S3Service {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(S3Service.class);
 
     private final AmazonS3 amazonS3;
     private final VoicesProperties voicesProperties;
@@ -23,15 +22,15 @@ public class S3Service {
         this.voicesProperties = voicesProperties;
     }
 
-    public void upload(String input) {
+    public void upload(String paragraphTranscription, byte[] audioFile, TranscriptionCallbackDTO callbackDTO) {
         try {
-            var in = new ByteArrayInputStream(input.getBytes());
+            var in = new ByteArrayInputStream(paragraphTranscription.getBytes());
             var metadata = new ObjectMetadata();
-            metadata.setContentLength(input.getBytes().length);
+            metadata.setContentLength(paragraphTranscription.getBytes().length);
             metadata.setContentType("txt");
             amazonS3.putObject(new PutObjectRequest("bucketName", "id_123", in, metadata));
         } catch (Exception e) {
-            LOGGER.error("[S3Service] Error uploading file", e);
+            log.error("[S3Service] Error uploading file", e);
         }
     }
 }

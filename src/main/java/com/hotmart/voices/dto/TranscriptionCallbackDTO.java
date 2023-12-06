@@ -32,4 +32,5 @@ public class TranscriptionCallbackDTO {
 
     @JsonProperty("plaintext_url")
     private String plaintextUrl;
+
 }

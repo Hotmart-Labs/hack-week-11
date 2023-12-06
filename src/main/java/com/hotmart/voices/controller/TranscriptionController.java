@@ -29,14 +29,15 @@ public class TranscriptionController {
     }
 
     @GetMapping("/transcription/{userCode}/{fileName}")
-    public ResponseEntity<String> transcriptionById(
+    public ResponseEntity<Void> transcriptionById(
             @Parameter(description = "Transcription id")
             @PathVariable(name = "userCode") String userCode,
             @Parameter(description = "File name")
             @PathVariable(name = "fileName") String fileName,
             @Parameter(description = "Callback data")
             TranscriptionCallbackDTO callbackDTO) {
-        return ResponseEntity.ok(transcriptionService.callbackTranscription(callbackDTO));
+        transcriptionService.callbackTranscription(callbackDTO);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/transcription")
