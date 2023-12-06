@@ -28,6 +28,7 @@ repositories {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-undertow")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.0.4")
 	implementation("io.github.openfeign:feign-httpclient:13.1")
 	implementation("com.amazonaws:aws-java-sdk-sts:1.9.6")
