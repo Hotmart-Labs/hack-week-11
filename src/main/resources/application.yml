@@ -30,7 +30,7 @@ management:
         enabled: true
   endpoints:
     web:
-      base-path: /management
+      base-path: /actuator
       exposure:
         include: info, health, metrics
 
@@ -42,6 +42,7 @@ security:
 feign:
   client:
     api-reshape: https://app.reshape.com.br
+    api-eleven: https://api.elevenlabs.io
   httpclient:
     disable-ssl-validation: true
 
@@ -49,6 +50,15 @@ reshape:
   key: 8ce3c1c0b3ab1796d5716034ae2a38111f658622
   apiUrl: https://app.reshape.com.br
   pathTranscription: /api/v1/transcriptions/
+
+eleven:
+  key: d9ef0c5d6f935e906e23d027a75cb622
+  voiceId: 47Ifm7ZS6KIClxAMGoJu
+  apiUrl: https://api.elevenlabs.io
+  path: /v1/text-to-speech/
+  model: eleven_multilingual_v2
+  stability: 0.9
+  similarity_boost: 0.9
 
 hotmert:
   s3:

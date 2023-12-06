@@ -1,6 +1,6 @@
 plugins {
 	java
-	id("org.springframework.boot") version "3.1.5"
+	id("org.springframework.boot") version "3.1.6"
 	id("io.spring.dependency-management") version "1.1.4"
 }
 
@@ -26,13 +26,11 @@ repositories {
 }
 
 dependencies {
-//	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-//	implementation("org.springframework.boot:spring-boot-starter-security")
-//	implementation("com.hotmart.datahub:event-agent:3.3.5")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-undertow")
-	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:2022.0.4"))
-	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.0.4")
+	implementation("io.github.openfeign:feign-httpclient:13.1")
 	implementation("com.amazonaws:aws-java-sdk-sts:1.9.6")
 	implementation("com.amazonaws:aws-java-sdk-s3:1.12.604")
 	implementation("com.amazonaws:aws-java-sdk-core:1.12.604")

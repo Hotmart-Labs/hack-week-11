@@ -3,7 +3,7 @@ package com.hotmart.voices.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hotmart.voices.dto.TranscriptionCallbackDTO;
 import com.hotmart.voices.dto.TranscriptionRequestDTO;
-import com.hotmart.voices.service.TranscriptionService;
+import com.hotmart.voices.application.service.TranscriptionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,14 +29,15 @@ public class TranscriptionController {
     }
 
     @GetMapping("/transcription/{userCode}/{fileName}")
-    public ResponseEntity<String> transcriptionById(
+    public ResponseEntity<Void> callback(
             @Parameter(description = "Transcription id")
             @PathVariable(name = "userCode") String userCode,
             @Parameter(description = "File name")
             @PathVariable(name = "fileName") String fileName,
             @Parameter(description = "Callback data")
-            TranscriptionCallbackDTO callbackDTO) {
-        return ResponseEntity.ok(transcriptionService.callbackTranscription(callbackDTO));
+            @RequestBody TranscriptionCallbackDTO callbackDTO) {
+        transcriptionService.callbackTranscription(callbackDTO);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/transcription")

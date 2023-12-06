@@ -10,5 +10,4 @@ import lombok.Data;
 public class TranscriptionRequestDTO {
     private String url;
     private String language;
-    private String userCode;
 }

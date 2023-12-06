@@ -1,23 +1,19 @@
-package com.hotmart.voices.service;
+package com.hotmart.voices.application.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hotmart.voices.dto.TranscriptionCallbackDTO;
 import com.hotmart.voices.dto.TranscriptionRequestDTO;
-import com.hotmart.voices.gateway.dto.ReshapeParagraphResponseDTO;
-import com.hotmart.voices.gateway.dto.ReshapeRequestDTO;
-import com.hotmart.voices.gateway.dto.ReshapeResponseDTO;
-import com.hotmart.voices.gateway.dto.ReshapeTextResponseDTO;
+import com.hotmart.voices.gateway.ApiElevenGateway;
+import com.hotmart.voices.gateway.dto.*;
 import com.hotmart.voices.gateway.ApiReshapeGateway;
-import com.hotmart.voices.properties.ReshapeProperties;
+import com.hotmart.voices.infrastructure.property.ElevenProperties;
+import com.hotmart.voices.infrastructure.property.ReshapeProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,14 +28,19 @@ public class TranscriptionService {
 
 
     private final ReshapeProperties reshapeProperties;
+    private final ElevenProperties elevenProperties;
+
     private final ApiReshapeGateway apiReshapeGateway;
+    private final ApiElevenGateway apiElevenGateway;
+    private final S3Service s3Service;
 
     public String send(TranscriptionRequestDTO requestDTO) throws JsonProcessingException {
         var fileName = requestDTO.getUrl().replace(S3_BUCKET, StringUtils.EMPTY);
-        var callbackUrl = String.join("/", HOTMART_VOICES_HOST, VERSION_API, requestDTO.getUserCode(), fileName);
+        var userCode = UUID.randomUUID().toString();
+        var callbackUrl = String.join("/", HOTMART_VOICES_HOST, VERSION_API, userCode, fileName);
 
         Map<String, Object> metadata = new HashMap<>();
-        metadata.put("userCode", requestDTO.getUserCode());
+        metadata.put("userCode", userCode);
         metadata.put("fileName", fileName);
         metadata.put("fileUrl", requestDTO.getUrl());
 
@@ -59,15 +60,26 @@ public class TranscriptionService {
         return transcriptionResponse.getPublicId();
     }
 
-    public String callbackTranscription(TranscriptionCallbackDTO requestDTO) {
+    public void callbackTranscription(TranscriptionCallbackDTO requestDTO) {
         if(Objects.nonNull(requestDTO.getPublicId())) {
             log.info("Callback transcription with public id {}", requestDTO.getPublicId());
             var paragraphsStr = this.getTranscription(requestDTO.getPublicId());
             log.info("Paragraph transcription: {}", paragraphsStr);
-            return paragraphsStr;
+            var elevenRequestDTO = ElevenRequestDTO.builder()
+                    .text(paragraphsStr)
+                    .modelId(elevenProperties.getModel())
+                    .voiceSettingsDTO(VoiceSettingsRequestDTO.builder()
+                            .stability(elevenProperties.getStability())
+                            .similarityBoost(elevenProperties.getSimilarityBoost())
+                            .build())
+                    .build();
+
+            byte[] audioFile = apiElevenGateway.createAudio(
+                    elevenProperties.getKey(), elevenProperties.getVoiceId(), elevenRequestDTO);
+            s3Service.upload(paragraphsStr, audioFile, requestDTO);
         }
-        return null;
     }
+
 
     public String getTranscription(String transcriptionId) {
         String apiToken = "Token " + reshapeProperties.getKey();
