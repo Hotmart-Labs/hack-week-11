@@ -1,6 +1,7 @@
 package com.hotmart.voices.controller;
 
 import com.hotmart.voices.application.service.EncodingService;
+import com.hotmart.voices.application.service.S3Service;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +24,22 @@ public class EncodingControler {
     @Autowired
     private EncodingService encodingService;
 
+    @Autowired
+    private S3Service s3Service;
+
+    private final String BUCKETNAME = "staging-hotmart";
+    private final String PAHTAUDIO = "hackweek11/audio/";
+    private final String PAHTVIDEO = "hackweek11/video/";
+
     @GetMapping("/encoding/{id}")
     public ResponseEntity encodingById(
             @Parameter(description = "encoding id")
             @PathVariable(name = "id") String transcriptionId) throws IOException {
 
-        String caminhoVideo = "123";
-        String caminhoAudio = "2345";
+        s3Service.download(transcriptionId, BUCKETNAME, PAHTVIDEO);
+        s3Service.download(transcriptionId, BUCKETNAME, PAHTAUDIO);
+        String caminhoVideo = "/tmp/"+transcriptionId+".mp4";
+        String caminhoAudio = "/tmp"+transcriptionId+".mp3";
         encodingService.encodingFile(caminhoVideo, caminhoAudio);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
