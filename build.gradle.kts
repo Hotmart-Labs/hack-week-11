@@ -33,7 +33,6 @@ dependencies {
 	implementation("com.amazonaws:aws-java-sdk-sts:1.9.6")
 	implementation("com.amazonaws:aws-java-sdk-s3:1.12.604")
 	implementation("com.amazonaws:aws-java-sdk-core:1.12.604")
-	implementation("com.hotmart.datahub:event-agent:3.3.5")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
