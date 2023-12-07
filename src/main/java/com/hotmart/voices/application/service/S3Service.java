@@ -2,6 +2,7 @@ package com.hotmart.voices.application.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.AllArgsConstructor;
@@ -18,15 +19,21 @@ import java.nio.file.Files;
 @AllArgsConstructor
 public class S3Service {
 
+    public static final String MEDIA_TYPE_MP3 = "mp3";
+
     private final AmazonS3 amazonS3;
 
-    public void upload(byte[] audioFile, String userCode) {
+    public void upload(byte[] audioFile, String userCode, String fileName) {
         try {
             var inFile = new ByteArrayInputStream(audioFile);
             var metadataAudio = new ObjectMetadata();
+            var fileNameMp3 = fileName.replace("mp4", MEDIA_TYPE_MP3);
             metadataAudio.setContentLength(audioFile.length);
-            metadataAudio.setContentType("mpg");
-            amazonS3.putObject(new PutObjectRequest("staging-hotmart" , "hackweek11/audio/" + userCode, inFile, metadataAudio));
+            metadataAudio.setContentType(MEDIA_TYPE_MP3);
+            var keyPath = "hackweek11/audio/" + userCode + "/" + fileNameMp3;
+            amazonS3.putObject(
+                    new PutObjectRequest("staging-hotmart" , keyPath, inFile, metadataAudio)
+                            .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (Exception e) {
             log.error("[S3Service] Error uploading file", e);
         }

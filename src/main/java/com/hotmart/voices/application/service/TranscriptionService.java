@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
 public class TranscriptionService {
 
     public static final String HOTMART_VOICES_HOST = "https://voices.buildstaging.com";
-    public static final String S3_BUCKET = "https://staging-hotmart.s3.amazonaws.com/hackweek11/audio/";
+    public static final String S3_BUCKET = "https://staging-hotmart.s3.amazonaws.com/hackweek11/video/";
 
-    public static final String VERSION_API = "v1";
+    public static final String PATH_API = "v1/transcription";
 
 
     private final ReshapeProperties reshapeProperties;
@@ -35,7 +35,7 @@ public class TranscriptionService {
     public String send(TranscriptionRequestDTO requestDTO) throws JsonProcessingException {
         var fileName = requestDTO.getUrl().replace(S3_BUCKET, StringUtils.EMPTY);
         var userCode = UUID.randomUUID().toString();
-        var callbackUrl = String.join("/", HOTMART_VOICES_HOST, VERSION_API, userCode, fileName);
+        var callbackUrl = String.join("/", HOTMART_VOICES_HOST, PATH_API, userCode, fileName);
 
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("userCode", userCode);
@@ -74,7 +74,7 @@ public class TranscriptionService {
 
             byte[] audioFile = apiElevenGateway.createAudio(
                     elevenProperties.getKey(), elevenProperties.getVoiceId(), elevenRequestDTO);
-            s3Service.upload(audioFile, userCode);
+            s3Service.upload(audioFile, userCode, fileName);
         }
     }
 

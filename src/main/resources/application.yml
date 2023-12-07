@@ -36,18 +36,21 @@ security:
         name: hotmart
         role: ACTUATOR
 feign:
+    default:
+        connectTimeout: 30000
+        readTimeout: 30000
     client:
         api-reshape: https://app.reshape.com.br
         api-eleven: https://api.elevenlabs.io
     httpclient:
         disable-ssl-validation: true
 reshape:
-    key: 8ce3c1c0b3ab1796d5716034ae2a38111f658622
+    key: b612cba261098e02e0138bcb6716e3360059e024
     apiUrl: https://app.reshape.com.br
     pathTranscription: /api/v1/transcriptions/
 eleven:
-    key: d9ef0c5d6f935e906e23d027a75cb622
-    voiceId: 47Ifm7ZS6KIClxAMGoJu
+    key: e7d14ac60d14139a4212b7fbc7565aac
+    voiceId: ErXwobaYiN019PkySvjV
     apiUrl: https://api.elevenlabs.io
     path: /v1/text-to-speech/
     model: eleven_multilingual_v2

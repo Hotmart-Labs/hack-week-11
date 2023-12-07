@@ -1,4 +1,4 @@
-package com.hotmart.voices.controller;
+package com.hotmart.voices.application.controller;
 
 import com.hotmart.voices.application.service.EncodingService;
 import com.hotmart.voices.application.service.S3Service;
@@ -32,7 +32,7 @@ public class EncodingControler {
     private final String PAHTVIDEO = "hackweek11/video/";
 
     @GetMapping("/encoding/{id}")
-    public ResponseEntity encodingById(
+    public ResponseEntity<Void> encodingById(
             @Parameter(description = "encoding id")
             @PathVariable(name = "id") String transcriptionId) throws IOException {
 
