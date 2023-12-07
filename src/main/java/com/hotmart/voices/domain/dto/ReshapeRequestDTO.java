@@ -14,6 +14,7 @@ public class ReshapeRequestDTO {
     private String url;
     private String language;
     private String name;
+    @JsonProperty("callback_url")
     private String callbackUrl;
     private int speakers;
     @JsonProperty("profanity_filter")

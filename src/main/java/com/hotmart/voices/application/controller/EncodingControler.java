@@ -1,4 +1,4 @@
-package com.hotmart.voices.controller;
+package com.hotmart.voices.application.controller;
 
 import com.hotmart.voices.application.service.EncodingService;
 import com.hotmart.voices.application.service.S3Service;
