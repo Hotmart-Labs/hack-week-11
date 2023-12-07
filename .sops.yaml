@@ -1,4 +1,3 @@
 creation_rules:
     - path_regex: .*/application.yml
       kms: 'arn:aws:kms:us-east-1:449466460580:alias/hotmart-voices'
-
