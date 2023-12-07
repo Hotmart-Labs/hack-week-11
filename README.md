@@ -1,4 +1,4 @@
-# Haotmart Voices
+# Hotmart Voices
 
 # Api Documentation
 ## Docs
