@@ -32,7 +32,7 @@ public class EncodingControler {
     private final String PAHTVIDEO = "hackweek11/video/";
 
     @GetMapping("/encoding/{id}")
-    public ResponseEntity encodingById(
+    public ResponseEntity<Void> encodingById(
             @Parameter(description = "encoding id")
             @PathVariable(name = "id") String transcriptionId) throws IOException {
 

@@ -19,17 +19,20 @@ import java.nio.file.Files;
 @AllArgsConstructor
 public class S3Service {
 
+    public static final String MEDIA_TYPE_MP3 = "mp3";
+
     private final AmazonS3 amazonS3;
 
     public void upload(byte[] audioFile, String userCode, String fileName) {
         try {
             var inFile = new ByteArrayInputStream(audioFile);
             var metadataAudio = new ObjectMetadata();
-            var fileNameMp3 = fileName.replace(".mp4", ".mp3");
+            var fileNameMp3 = fileName.replace("mp4", MEDIA_TYPE_MP3);
             metadataAudio.setContentLength(audioFile.length);
-            metadataAudio.setContentType("mp3");
+            metadataAudio.setContentType(MEDIA_TYPE_MP3);
+            var keyPath = "hackweek11/audio/" + userCode + "/" + fileNameMp3;
             amazonS3.putObject(
-                    new PutObjectRequest("staging-hotmart" , "hackweek11/audio/" + userCode + "/" + fileNameMp3, inFile, metadataAudio)
+                    new PutObjectRequest("staging-hotmart" , keyPath, inFile, metadataAudio)
                             .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (Exception e) {
             log.error("[S3Service] Error uploading file", e);
